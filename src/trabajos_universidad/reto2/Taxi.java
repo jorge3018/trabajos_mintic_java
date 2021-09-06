@@ -1,4 +1,4 @@
-package trabajos_universidad;
+package trabajos_universidad.reto2;
 
 public class Taxi extends Vehiculo {
 
