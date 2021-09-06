@@ -2,17 +2,19 @@ package trabajos_universidad;
 
 public class Autobus extends Vehiculo {
 
-	public Autobus(String nombreConductor) {
-		super(nombreConductor);
-		// TODO Auto-generated constructor stub
+	public Autobus(String nombreConductor, int nMaximoPasajeros) {
+		super(nombreConductor, nMaximoPasajeros);
+		System.out.println("es un bus");
 	}
 
 	boolean puertaAbierta = false;
 
 	public void recogerPasajero(int estrato) {
-		this.cantidadDinero += this.calcularPasaje(estrato);
 
-		this.nPasajeros += this.nMaximoPasajeros <= this.nPasajeros + 1 ? 1 : 0;
+		if (this.puertaAbierta == true && this.nMaximoPasajeros >= this.nPasajeros + 1 ) {
+			this.nPasajeros += 1;
+			this.cantidadDinero += this.calcularPasaje(estrato);
+		}
 
 	}
 
@@ -21,7 +23,9 @@ public class Autobus extends Vehiculo {
 	}
 
 	public void gestionarMarcha() {
-		this.enMarcha = this.enMarcha == false && this.puertaAbierta == false ? true : false;
+
+		this.enMarcha = this.motorEncendido == true && this.enMarcha == false && this.puertaAbierta == false ? true
+				: false;
 
 	}
 
@@ -42,14 +46,12 @@ public class Autobus extends Vehiculo {
 			break;
 		case 6:
 		case 5:
-			result = 2600;
+			result = 3000;
 			break;
 
 		}
 		return result;
 	}
-	
-	
 
 //	getters and setters
 
@@ -59,6 +61,15 @@ public class Autobus extends Vehiculo {
 
 	public void setPuertaAbierta(boolean puertaAbierta) {
 		this.puertaAbierta = puertaAbierta;
+	}
+
+	@Override
+	public String toString() {
+		return "Autobus [puertaAbierta=" + puertaAbierta + ", nombreConductor=" + nombreConductor
+				+ ", nMaximoPasajeros=" + nMaximoPasajeros + ", nPasajeros=" + nPasajeros + ", cantidadDinero="
+				+ cantidadDinero + ", localizacionX=" + localizacionX + ", localizacionY=" + localizacionY
+				+ ", aireAcondicionadoActivado=" + aireAcondicionadoActivado + ", motorEncendido=" + motorEncendido
+				+ ", wifiEncendido=" + wifiEncendido + ", enMarcha=" + enMarcha + "]";
 	}
 
 }

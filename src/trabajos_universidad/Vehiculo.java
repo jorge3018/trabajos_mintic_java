@@ -1,12 +1,12 @@
 package trabajos_universidad;
 
-public class Vehiculo {
+public abstract class Vehiculo {
 
 	// variables en le constructor
 	String nombreConductor;
+	int nMaximoPasajeros;
 
 	int nPasajeros = 0;
-	int nMaximoPasajeros;
 	double cantidadDinero = 0;
 	double localizacionX = 0;
 	double localizacionY = 0;
@@ -15,9 +15,11 @@ public class Vehiculo {
 	boolean wifiEncendido = false;
 	boolean enMarcha = false;
 
-	public Vehiculo(String nombreConductor) {
+
+public Vehiculo(String nombreConductor, int nMaximoPasajeros) {
 		super();
 		this.nombreConductor = nombreConductor;
+		this.nMaximoPasajeros = nMaximoPasajeros;
 	}
 
 //		class methods
@@ -27,8 +29,7 @@ public class Vehiculo {
 	}
 
 	public double calcularDistanciaAcopio() {
-		// TODO Auto-generated method stub
-		return this.localizacionX + this.localizacionY;
+		return Math.sqrt((Math.pow(localizacionX, 2) + (Math.pow(localizacionY, 2))));
 	}
 
 	public void gestionarAireAcondicionado() {
@@ -38,8 +39,12 @@ public class Vehiculo {
 	}
 
 	public void gestionarMotor() {
-		// TODO Auto-generated method stub
-		this.motorEncendido = this.motorEncendido == false ? true : false;
+		this.motorEncendido = !this.motorEncendido;
+		if (!this.motorEncendido) {
+			this.aireAcondicionadoActivado = false;
+			this.wifiEncendido = false;
+			this.enMarcha = false;
+		}
 	}
 
 	public void gestionarWifi() {
@@ -47,23 +52,22 @@ public class Vehiculo {
 		this.wifiEncendido = this.motorEncendido == true && this.wifiEncendido == false ? true : false;
 	}
 
-	public void gestionarMarcha() {
-	};
+	public abstract void gestionarMarcha();
 
 	public void moverDerecha(double d) {
-		this.localizacionX += this.enMarcha == true ? 1 : 0;
+		this.localizacionX += this.enMarcha == true ? d : 0;
 	}
 
 	public void moverIzquierda(double d) {
-		this.localizacionX -= this.enMarcha == true ? 1 : 0;
+		this.localizacionX -= this.enMarcha == true ? d : 0;
 	}
 
 	public void moverArriba(double d) {
-		this.localizacionY += this.enMarcha == true ? 1 : 0;
+		this.localizacionY += this.enMarcha == true ? d : 0;
 	}
 
 	public void moverAbajo(double d) {
-		this.localizacionY -= this.enMarcha == true ? 1 : 0;
+		this.localizacionY -= this.enMarcha == true ? d : 0;
 	}
 	
 	
@@ -151,5 +155,24 @@ public class Vehiculo {
 	public void setEnMarcha(boolean enMarcha) {
 		this.enMarcha = enMarcha;
 	}
+
+	@Override
+	public String toString() {
+		return "Vehiculo [nombreConductor=" + nombreConductor + ", nMaximoPasajeros=" + nMaximoPasajeros
+				+ ", nPasajeros=" + nPasajeros + ", cantidadDinero=" + cantidadDinero + ", localizacionX="
+				+ localizacionX + ", localizacionY=" + localizacionY + ", aireAcondicionadoActivado="
+				+ aireAcondicionadoActivado + ", motorEncendido=" + motorEncendido + ", wifiEncendido=" + wifiEncendido
+				+ ", enMarcha=" + enMarcha + ", calcularDistanciaAcopio()=" + calcularDistanciaAcopio()
+				+ ", getNombreConductor()=" + getNombreConductor() + ", getnPasajeros()=" + getnPasajeros()
+				+ ", getnMaximoPasajeros()=" + getnMaximoPasajeros() + ", getCantidadDinero()=" + getCantidadDinero()
+				+ ", getLocalizacionX()=" + getLocalizacionX() + ", getLocalizacionY()=" + getLocalizacionY()
+				+ ", isAireAcondicionadoActivado()=" + isAireAcondicionadoActivado() + ", isMotorEncendido()="
+				+ isMotorEncendido() + ", isWifiEncendido()=" + isWifiEncendido() + ", isEnMarcha()=" + isEnMarcha()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+	
+	
+	
 
 }
